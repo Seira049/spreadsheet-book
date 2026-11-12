@@ -31,7 +31,7 @@ cd spreadsheet-book
 
 **Option A, quickest:** double-click `index.html`. It opens in your browser.
 
-**Option B, closest to the live site** (needs Python 3, which macOS already includes):
+**Option B, closest to the live site** (needs Python 3). On a Mac, the first time you run `python3`, macOS may offer to install Apple's Command Line Tools. Accept, then run the command again. Or skip this and use Option A.
 
 ```sh
 python3 -m http.server 8080
