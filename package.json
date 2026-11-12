@@ -1,0 +1,11 @@
+{
+  "name": "spreadsheet-book",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "description": "Interactive books: Excel and Google Sheets from zero to intermediate",
+  "scripts": {
+    "test": "node tests/engine.test.js",
+    "start": "python3 -m http.server 8080"
+  }
+}

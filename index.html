@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spreadsheets from Zero: Interactive Excel and Google Sheets Books</title>
+  <meta name="description" content="Free interactive books that teach Excel and Google Sheets from zero to intermediate, with live practice sheets in every lesson.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23107c41'/%3E%3Cpath d='M8 9h16M8 16h16M8 23h16M13 6v20M20 6v20' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="landing">
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Interactive books · free · no sign-up</p>
+      <h1>Spreadsheets from Zero</h1>
+      <p class="lede">Learn Excel or Google Sheets from your very first cell to lookups, pivot tables and charts. Every lesson has a live practice sheet that checks your work as you type.</p>
+    </div>
+  </header>
+
+  <main class="shelf">
+    <a class="book-card excel" href="book.html?track=excel">
+      <div class="cover">
+        <div class="cover-grid" aria-hidden="true"></div>
+        <div class="cover-title"><span>Excel</span><small>Zero to Intermediate</small></div>
+      </div>
+      <div class="card-body">
+        <p>Microsoft Excel for Windows, Mac and the web: the Ribbon, AutoSum, Tables, Flash Fill, PivotTables and printing.</p>
+        <div class="card-progress" data-track="excel"></div>
+        <span class="btn primary">Open the Excel book →</span>
+      </div>
+    </a>
+    <a class="book-card sheets" href="book.html?track=sheets">
+      <div class="cover">
+        <div class="cover-grid" aria-hidden="true"></div>
+        <div class="cover-title"><span>Google Sheets</span><small>Zero to Intermediate</small></div>
+      </div>
+      <div class="card-body">
+        <p>Google Sheets in your browser: sharing and comments, version history, filter views, pivot tables and Sheets-only functions.</p>
+        <div class="card-progress" data-track="sheets"></div>
+        <span class="btn primary">Open the Google Sheets book →</span>
+      </div>
+    </a>
+  </main>
+
+  <section class="features">
+    <div><h3>✍️ Practise in every lesson</h3><p>A real working mini-spreadsheet with formulas, fill handle, copy/paste, $ references, formatting, sorting and charts.</p></div>
+    <div><h3>✅ Instant feedback</h3><p>Tasks tick themselves off when your answer is right. Stuck? Get a hint, or let the book show you.</p></div>
+    <div><h3>💾 Picks up where you left off</h3><p>Progress and your practice work are saved in this browser. Nothing is sent anywhere.</p></div>
+    <div><h3>🧭 12 chapters</h3><p>Basics, formatting, formulas, references, logic, text, lookups, sorting and filtering, charts, pivot tables, power features and a final project.</p></div>
+  </section>
+
+  <footer class="site-foot">
+    <p>Excel is a trademark of Microsoft. Google Sheets is a trademark of Google. This is an independent learning resource and is not affiliated with either company.</p>
+  </footer>
+
+  <script>
+    (function () {
+      var counts = { excel: 41, sheets: 41 };
+      document.querySelectorAll('.card-progress').forEach(function (el) {
+        var t = el.dataset.track, p = null;
+        try { p = JSON.parse(localStorage.getItem('ssbook:' + t + ':progress')); } catch (e) {}
+        var done = p && p.done ? Object.keys(p.done).length : 0;
+        if (!done) { el.textContent = 'Not started'; return; }
+        var pct = Math.min(100, Math.round(done / counts[t] * 100));
+        el.innerHTML = '<div class="progress-track"><div style="width:' + pct + '%"></div></div><span>' + done + ' lessons done</span>';
+      });
+      var th = localStorage.getItem('ssbook:theme');
+      if (th) document.documentElement.dataset.theme = th;
+    })();
+  </script>
+</body>
+</html>

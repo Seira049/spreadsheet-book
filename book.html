@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spreadsheet Book</title>
+  <meta name="description" content="An interactive book that takes you from zero to intermediate in Excel or Google Sheets, with live practice sheets.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23107c41'/%3E%3Cpath d='M8 9h16M8 16h16M8 23h16M13 6v20M20 6v20' stroke='white' stroke-width='2'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="reader">
+  <a class="skip" href="#main">Skip to lesson</a>
+  <header class="topbar">
+    <button type="button" id="nav-toggle" class="icon-btn" aria-label="Show or hide contents">☰</button>
+    <a href="index.html" class="brand" aria-label="Back to the library"><span class="logo" aria-hidden="true"></span></a>
+    <div class="book-title" id="book-title"></div>
+    <div class="progress" title="Your progress">
+      <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Book progress"><div id="progress-bar"></div></div>
+      <span id="progress-text"></span>
+    </div>
+    <button type="button" id="theme-toggle" class="icon-btn" aria-label="Toggle dark mode">◐</button>
+  </header>
+  <div class="layout">
+    <nav class="toc-wrap" aria-label="Contents">
+      <div id="toc"></div>
+      <div class="toc-foot">
+        <a id="switch-book" href="#"></a>
+        <button type="button" id="reset-progress" class="link-btn">Reset my progress</button>
+      </div>
+    </nav>
+    <div id="nav-scrim"></div>
+    <main id="main" tabindex="-1"></main>
+  </div>
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/engine.js"></script>
+  <script src="js/grid.js"></script>
+  <script src="js/content/helpers.js"></script>
+  <script src="js/content/part1.js"></script>
+  <script src="js/content/part2.js"></script>
+  <script src="js/content/part3.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
