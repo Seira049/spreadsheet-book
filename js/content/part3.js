@@ -1,6 +1,6 @@
 /* Chapters 9-12: Charts, Pivot tables, track-specific power features, Final project */
 BookContent.register(function (c) {
-  const { X, app, v, k, path, tip, note, warn, diff, grid, quiz, code } = c;
+  const { X, M, app, platform, v, k, sc, path, tip, note, warn, diff, grid, quiz, code } = c;
   const bold = (...cells) => Object.fromEntries(cells.map((a) => [a, { b: true }]));
 
   const excelPower = {
@@ -9,7 +9,7 @@ BookContent.register(function (c) {
       {
         id: 'tables', title: 'Excel Tables and structured references', minutes: 10,
         html: `
-<p>An Excel <strong>Table</strong> is a range that Excel treats as one object. Click inside your data and press ${k('Ctrl')}+${k('T')} (or ${path('Insert', 'Table')}), confirm <b>My table has headers</b>, and you get:</p>
+<p>An Excel <strong>Table</strong> is a range that Excel treats as one object. Click inside your data and press ${sc('Ctrl+T')} (or ${path('Insert', 'Table')}), confirm <b>My table has headers</b>, and you get:</p>
 <ul>
   <li>Banded rows and a filter button in every header, automatically.</li>
   <li><b>Auto-expanding</b>: type a new row directly under the table and it joins the table. Formulas, formatting, charts and pivot tables that use the table pick it up.</li>
@@ -35,22 +35,22 @@ ${quiz('q1')}`,
         id: 'flash-quick', title: 'Flash Fill, Quick Analysis and shortcuts', minutes: 8,
         html: `
 <h3>Flash Fill</h3>
-<p>Type an example of what you want next to your data, then press ${k('Ctrl')}+${k('E')}. Excel guesses the pattern for the rest of the column. It is great for splitting names, extracting codes and reformatting phone numbers. The results are plain values, not formulas, so they don't update when the source changes.</p>
+<p>Type an example of what you want next to your data, then ${M ? `choose ${path('Data', 'Flash Fill')}` : `press ${sc('Ctrl+E')}`}. Excel guesses the pattern for the rest of the column. It is great for splitting names, extracting codes and reformatting phone numbers. The results are plain values, not formulas, so they don't update when the source changes.</p>
 <h3>Quick Analysis</h3>
-<p>Select a block of data. A small icon appears at the bottom-right corner (or press ${k('Ctrl')}+${k('Q')} on Windows). It offers one-click conditional formatting, charts, totals, tables and sparklines, with a live preview.</p>
+<p>${M ? 'In Excel for Windows and Excel for the web, selecting data shows a Quick Analysis button. If your Mac version shows it too, it offers' : `Select a block of data. A small icon appears at the bottom-right corner (or press ${sc('Ctrl+Q')}). It offers`} one-click conditional formatting, charts, totals, tables and sparklines, with a live preview.</p>
 <h3>Recommended Charts and PivotTables</h3>
 <p>${path('Insert', 'Recommended Charts')} and ${path('Insert', 'Recommended PivotTables')} suggest options based on your data. They make a good starting point.</p>
 <h3>Shortcuts worth learning</h3>
-<p class="small">These are the Windows keys. On a Mac: Format Cells is ${k('⌘')}+${k('1')}, a Table is ${k('⌘')}+${k('T')}, AutoSum is ${k('⌘')}+${k('Shift')}+${k('T')}, and the $ toggle is ${k('⌘')}+${k('T')} or ${k('F4')}.</p>
+<p class="small">${c.kbNote}</p>
 <table class="ref">
-  <tr><td>${k('Ctrl')}+${k('1')}</td><td>Format Cells dialog</td></tr>
-  <tr><td>${k('Ctrl')}+${k(';')}</td><td>Insert today's date</td></tr>
-  <tr><td>${k('Ctrl')}+${k('Shift')}+${k('L')}</td><td>Toggle filter</td></tr>
-  <tr><td>${k('Ctrl')}+${k('T')}</td><td>Create a Table</td></tr>
-  <tr><td>${k('Alt')}+${k('=')}</td><td>AutoSum</td></tr>
-  <tr><td>${k('Ctrl')}+${k('`')}</td><td>Show all formulas instead of results</td></tr>
-  <tr><td>${k('Ctrl')}+${k('Page Down')} / ${k('Page Up')}</td><td>Next / previous sheet</td></tr>
-  <tr><td>${k('F4')}</td><td>Toggle $ in a reference while editing; repeat last action otherwise</td></tr>
+  <tr><td>${sc('Ctrl+1')}</td><td>Format Cells dialog</td></tr>
+  <tr><td>${sc('Ctrl+;')}</td><td>Insert today's date</td></tr>
+  <tr><td>${sc('Ctrl+Shift+L')}</td><td>Toggle filter</td></tr>
+  <tr><td>${sc('Ctrl+T')}</td><td>Create a Table</td></tr>
+  <tr><td>${sc('Alt+=')}</td><td>AutoSum</td></tr>
+  <tr><td>${sc('Ctrl+`')}</td><td>Show all formulas instead of results</td></tr>
+  <tr><td>${sc('Ctrl+Page Down')} / ${sc('Ctrl+Page Up')}</td><td>Next / previous sheet</td></tr>
+  <tr><td>${sc('F4')}</td><td>Toggle $ in a reference while editing; repeat last action otherwise</td></tr>
 </table>
 ${quiz('q1')}`,
         quizzes: {
@@ -60,7 +60,7 @@ ${quiz('q1')}`,
       {
         id: 'print', title: 'Printing and page layout', minutes: 7,
         html: `
-<p>Spreadsheets don't fit neatly on paper by default. Before printing, open <b>File › Print</b> (${k('Ctrl')}+${k('P')}) and check the preview.</p>
+<p>Spreadsheets don't fit neatly on paper by default. Before printing, open <b>File › Print</b> (${sc('Ctrl+P')}) and check the preview.</p>
 <ul>
   <li><b>Orientation</b>: Landscape for wide tables.</li>
   <li><b>Scaling</b>: <i>Fit All Columns on One Page</i> prevents a lonely column printing on page 2.</li>
@@ -92,7 +92,7 @@ ${quiz('q1')}`,
   <li>The gear icon in the Share dialog controls whether editors can re-share and whether viewers can download, print or copy.</li>
 </ul>
 <h3>Comments and assignments</h3>
-<p>Right-click a cell › <b>Comment</b> (${k('Ctrl')}+${k('Alt')}+${k('M')}). Type <b>@</b> and a name to notify someone, and tick <b>Assign to</b> to make it a task they must resolve.</p>
+<p>Right-click a cell › <b>Comment</b> (${sc('Ctrl+Alt+M')}). Type <b>@</b> and a name to notify someone, and tick <b>Assign to</b> to make it a task they must resolve.</p>
 <h3>Protecting ranges</h3>
 <p>${path('Data', 'Protect sheets and ranges')} stops collaborators from editing formulas or headers by accident. Choose who may still edit, or just show a warning.</p>
 <h3>Seeing who changed what</h3>
@@ -265,7 +265,7 @@ ${quiz('q1')}`,
   <li>To change Sum to Count or Average: click the field in Values › <b>Value Field Settings</b>.</li>
   <li>Format numbers: right-click a value › <b>Number Format</b>.</li>
 </ol>
-${warn(`<p>Pivot tables <b>don't update automatically</b> when the source data changes. Right-click the pivot › <b>Refresh</b>, or ${path('Data', 'Refresh All')} (${k('Ctrl')}+${k('Alt')}+${k('F5')}).</p>`)}
+${warn(`<p>Pivot tables <b>don't update automatically</b> when the source data changes. Right-click the pivot › <b>Refresh</b>, or ${path('Data', 'Refresh All')}${M ? '' : ` (${sc('Ctrl+Alt+F5')})`}.</p>`)}
 ${tip(`<p>Double-click any number in a pivot table and Excel creates a new sheet listing exactly the rows behind it. It is handy for checking a surprising total.</p>`)}
 <p><b>Slicers</b> (${path('PivotTable Analyze', 'Insert Slicer')}) add clickable filter buttons. They are great for dashboards. Grouping dates by month or year: right-click a date in the pivot › <b>Group</b>.</p>
 ${quiz('q1')}${quiz('q2')}` : `
@@ -332,19 +332,19 @@ ${tip(`<p>Stuck? Each task has a hint. Try for a while before clicking <b>Show m
           id: 'cheatsheet', title: 'Cheat sheet and next steps', minutes: 6,
           html: `
 <h3>Shortcuts</h3>
-<p class="small">${c.mac}</p>
+<p class="small">${c.kbNote}</p>
 <table class="ref two">
-  <tr><td>${k('Ctrl')}+${k('C')} / ${k('X')} / ${k('V')}</td><td>Copy / cut / paste</td></tr>
-  <tr><td>${k('Ctrl')}+${k('Z')} / ${k('Y')}</td><td>Undo / redo</td></tr>
-  <tr><td>${k('Ctrl')}+${k('B')}</td><td>Bold</td></tr>
-  <tr><td>${k('Ctrl')}+${k('Arrow')}</td><td>Jump to the edge of the data</td></tr>
-  <tr><td>${k('Ctrl')}+${k('Shift')}+${k('Arrow')}</td><td>Select to the edge of the data</td></tr>
-  <tr><td>${k('Ctrl')}+${k('D')} / ${k('R')}</td><td>Fill down / right</td></tr>
-  <tr><td>${k('F2')}</td><td>Edit the active cell</td></tr>
-  <tr><td>${k('F4')}</td><td>Cycle $ in a reference while editing</td></tr>
-  <tr><td>${k('Ctrl')}+${k('Home')}</td><td>Go to A1</td></tr>
-  <tr><td>${k('Ctrl')}+${k('F')}</td><td>Find. ${k('Ctrl')}+${k('H')} opens ${X ? 'Replace' : 'Find and replace'} (Mac: ${k('⌘')}+${k('Shift')}+${k('H')}, because ⌘+H hides the app)</td></tr>
-  ${X ? `<tr><td>${k('Ctrl')}+${k('1')}</td><td>Format Cells</td></tr><tr><td>${k('Alt')}+${k('=')}</td><td>AutoSum</td></tr><tr><td>${k('Ctrl')}+${k('T')}</td><td>Make a Table</td></tr>` : `<tr><td>${k('Ctrl')}+${k('/')}</td><td>Show all keyboard shortcuts</td></tr><tr><td>${k('Ctrl')}+${k('Shift')}+${k('V')}</td><td>Paste values only</td></tr><tr><td>${k('Ctrl')}+${k('Alt')}+${k('M')}</td><td>Insert comment</td></tr>`}
+  <tr><td>${sc('Ctrl+C')} / ${k('X')} / ${k('V')}</td><td>Copy / cut / paste</td></tr>
+  <tr><td>${sc('Ctrl+Z')} / ${k('Y')}</td><td>Undo / redo</td></tr>
+  <tr><td>${sc('Ctrl+B')}</td><td>Bold</td></tr>
+  <tr><td>${sc('Ctrl+Arrow')}</td><td>Jump to the edge of the data</td></tr>
+  <tr><td>${sc('Ctrl+Shift+Arrow')}</td><td>Select to the edge of the data</td></tr>
+  <tr><td>${sc('Ctrl+D')} / ${k('R')}</td><td>Fill down / right</td></tr>
+  <tr><td>${sc('F2')}</td><td>Edit the active cell</td></tr>
+  <tr><td>${sc('F4')}</td><td>Cycle $ in a reference while editing</td></tr>
+  <tr><td>${sc('Ctrl+Home')}</td><td>Go to A1</td></tr>
+  <tr><td>${sc('Ctrl+F')}</td><td>Find. ${sc('Ctrl+H')} opens ${X ? 'Replace' : 'Find and replace'}</td></tr>
+  ${X ? `<tr><td>${sc('Ctrl+1')}</td><td>Format Cells</td></tr><tr><td>${sc('Alt+=')}</td><td>AutoSum</td></tr><tr><td>${sc('Ctrl+T')}</td><td>Make a Table</td></tr>` : `<tr><td>${sc('Ctrl+/')}</td><td>Show all keyboard shortcuts</td></tr><tr><td>${sc('Ctrl+Shift+V')}</td><td>Paste values only</td></tr><tr><td>${sc('Ctrl+Alt+M')}</td><td>Insert comment</td></tr>`}
 </table>
 <h3>Functions you now know</h3>
 <div class="fn-cloud">${['SUM', 'AVERAGE', 'MIN', 'MAX', 'COUNT', 'COUNTA', 'ROUND', 'IF', 'IFS', 'AND', 'OR', 'NOT', 'COUNTIF', 'SUMIF', 'AVERAGEIF', 'COUNTIFS', 'SUMIFS', 'CONCAT', 'TEXTJOIN', 'TRIM', 'PROPER', 'UPPER', 'LOWER', 'LEN', 'LEFT', 'RIGHT', 'MID', 'FIND', 'SUBSTITUTE', 'VLOOKUP', 'XLOOKUP', 'INDEX', 'MATCH', 'IFERROR', 'SUBTOTAL'].map((f) => `<span>${f}</span>`).join('')}</div>

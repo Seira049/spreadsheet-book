@@ -17,6 +17,15 @@
     </div>
   </header>
 
+  <section class="picker" aria-labelledby="pick-os">
+    <h2 id="pick-os"><span class="step">1</span> Which computer do you use?</h2>
+    <p>The lessons will show the keyboard shortcuts for your computer. You can change this later from inside the book.</p>
+    <div class="seg big" id="os-pick" role="group" aria-label="Your computer">
+      <button type="button" data-os="win"><span aria-hidden="true">🪟</span> Windows</button><button type="button" data-os="mac"><span aria-hidden="true">💻</span> Mac</button>
+    </div>
+    <h2 class="pick-next"><span class="step">2</span> Pick your book</h2>
+  </section>
+
   <main class="shelf">
     <a class="book-card excel" href="book.html?track=excel">
       <div class="cover">
@@ -64,6 +73,26 @@
         var pct = Math.min(100, Math.round(done / counts[t] * 100));
         el.innerHTML = '<div class="progress-track"><div style="width:' + pct + '%"></div></div><span>' + done + ' lessons done</span>';
       });
+      var os = null;
+      try { os = localStorage.getItem('ssbook:os'); } catch (e) {}
+      if (os !== 'win' && os !== 'mac') os = /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent) ? 'mac' : 'win';
+      var names = { win: 'Windows', mac: 'Mac' };
+      function apply() {
+        document.querySelectorAll('#os-pick [data-os]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.os === os)); });
+        document.querySelectorAll('.book-card').forEach(function (a) {
+          var t = a.classList.contains('excel') ? 'excel' : 'sheets';
+          a.href = 'book.html?track=' + t + '&os=' + os;
+          a.querySelector('.btn').textContent = 'Open the ' + (t === 'excel' ? 'Excel' : 'Google Sheets') + ' book for ' + names[os] + ' →';
+        });
+      }
+      document.querySelectorAll('#os-pick [data-os]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          os = b.dataset.os;
+          try { localStorage.setItem('ssbook:os', os); } catch (e) {}
+          apply();
+        });
+      });
+      apply();
       var th = localStorage.getItem('ssbook:theme');
       if (th) document.documentElement.dataset.theme = th;
     })();

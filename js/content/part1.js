@@ -1,6 +1,6 @@
 /* Chapters 1-4: Getting started, Working with data, Formulas, References */
 BookContent.register(function (c) {
-  const { X, app, v, k, path, tip, note, warn, diff, grid, quiz, code } = c;
+  const { X, M, app, platform, v, k, sc, path, tip, note, warn, diff, grid, quiz, code } = c;
   const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
 
   return [
@@ -53,7 +53,7 @@ ${quiz('q1')}`,
   <dt>Sheet tabs</dt><dd>Bottom-left. Click <b>+</b> to add a sheet, double-click a tab to rename it.</dd>
   <dt>Status bar</dt><dd>Bottom edge. Select some numbers and it shows their Sum, Average and Count without any formula.</dd>
 </dl>
-${tip(`<p>Ribbon too big? Double-click any tab name (like <b>Home</b>) to collapse it. Double-click again to bring it back. Press ${k('Alt')} on Windows to see a letter shortcut on every button.</p>`)}
+${tip(`<p>Ribbon too big? Double-click any tab name (like <b>Home</b>) to collapse it. Double-click again to bring it back.${M ? '' : ` Press ${k('Alt')} to see a letter shortcut on every button.`}</p>`)}
 ${quiz('q1')}${quiz('q2')}` : `
 <p>Go to <a href="https://sheets.google.com" target="_blank" rel="noopener">sheets.google.com</a> and click <strong>Blank spreadsheet</strong> (or type <b>sheets.new</b> in your browser's address bar). A Google Sheets file is a <strong>spreadsheet</strong>, and it can hold several <strong>sheets</strong> (tabs).</p>
 <div class="screen-map">
@@ -72,7 +72,7 @@ ${quiz('q1')}${quiz('q2')}` : `
   <dt>Sheet tabs</dt><dd>Bottom-left. Click <b>+</b> to add a sheet, double-click a tab to rename it.</dd>
   <dt>Sum box</dt><dd>Bottom-right. Select some numbers and it shows their Sum. Click it to choose Average, Count, Min or Max instead.</dd>
 </dl>
-${tip(`<p>Can't find a feature? Press ${k('Alt')}+${k('/')} (Windows) or ${k('Option')}+${k('/')} (Mac) to open the <b>Tool finder</b> and search every menu command by name.</p>`)}
+${tip(`<p>Can't find a feature? Press ${sc('Alt+/')} to open the <b>Tool finder</b> and search every menu command by name.</p>`)}
 ${quiz('q1')}${quiz('q2')}`,
           quizzes: {
             q1: { q: 'Cell B4 shows 12, but you want to see whether it contains a formula. Where do you look?', options: ['The sheet tab', 'The formula bar', `The ${X ? 'Ribbon' : 'menu bar'}`, 'The status bar'], answer: 1, explain: 'The formula bar always shows the true contents of the selected cell.' },
@@ -114,12 +114,12 @@ ${quiz('q1')}${quiz('q2')}`,
           html: `
 <p>To enter data, select a cell and start typing. Finish with:</p>
 <ul>
-  <li>${k('Enter')} to save and move <b>down</b>.</li>
+  <li>${sc('Enter')} to save and move <b>down</b>.</li>
   <li>${k('Tab')} to save and move <b>right</b>. Handy for filling a row.</li>
   <li>${k('Esc')} to cancel what you typed.</li>
 </ul>
-<p>To <b>change</b> a cell, select it and just type the new value. It replaces the old one. To fix part of it instead, double-click the cell${X ? ` or press ${k('F2')}` : `, press ${k('Enter')} or ${k('F2')}`} to edit in place. You can also click in the formula bar. Press ${k('Delete')} to empty the selected cells.</p>
-${X ? '' : note(`<p>In Google Sheets, pressing ${k('Enter')} on a selected cell <b>starts editing</b> it. In Excel, Enter moves down instead. The practice sheet in this book copies the Google Sheets behaviour.</p>`, 'Enter edits')}
+<p>To <b>change</b> a cell, select it and just type the new value. It replaces the old one. To fix part of it instead, double-click the cell${X ? ` or press ${sc('F2')}` : `, press ${sc('Enter')} or ${sc('F2')}`} to edit in place. You can also click in the formula bar. Press ${k('Delete')} to empty the selected cells.</p>
+${X ? '' : note(`<p>In Google Sheets, pressing ${sc('Enter')} on a selected cell <b>starts editing</b> it. In Excel, Enter moves down instead. The practice sheet in this book copies the Google Sheets behaviour.</p>`, 'Enter edits')}
 <h3>Text vs numbers</h3>
 <p>${app} decides what you typed. <b>Numbers line up on the right</b> of the cell. <b>Text lines up on the left</b>. If a "number" sits on the left, it is being treated as text and maths on it will not work. A classic cause is typing the letter O instead of the digit 0.</p>
 ${tip(`<p>Want a number stored as text, like a phone number or ZIP code with a leading zero? Start with an apostrophe: <b>'007</b>. The apostrophe is not shown.</p>`)}
@@ -146,17 +146,17 @@ ${quiz('q1')}`,
           id: 'files', title: X ? 'Creating, saving and opening workbooks' : 'Creating, saving and sharing files', minutes: 6,
           html: X ? `
 <h3>Create</h3>
-<p>${path('File', 'New', 'Blank workbook')}, or press ${k('Ctrl')}+${k('N')}. The New screen also offers <b>templates</b> such as budgets and calendars. They are a great way to see how other people build sheets.</p>
+<p>${path('File', 'New', 'Blank workbook')}, or press ${sc('Ctrl+N')}. The New screen also offers <b>templates</b> such as budgets and calendars. They are a great way to see how other people build sheets.</p>
 <h3>Save</h3>
 <ul>
-  <li>${k('Ctrl')}+${k('S')} saves. The first time, Excel asks where and what name.</li>
+  <li>${sc('Ctrl+S')} saves. The first time, Excel asks where and what name.</li>
   <li>Excel files end in <b>.xlsx</b>. Files with macros end in <b>.xlsm</b>. You can also save as <b>.csv</b>, which is plain text with values only and no formatting or formulas.</li>
   <li><b>AutoSave</b> (switch at the top-left) saves every change automatically, but only when the file is stored in OneDrive or SharePoint.</li>
-  <li>${k('F12')} opens <b>Save As</b> to make a copy with a new name.</li>
+  <li>${sc('F12')} opens <b>Save As</b> to make a copy with a new name.</li>
 </ul>
 <h3>Open</h3>
-<p>${path('File', 'Open')} or ${k('Ctrl')}+${k('O')}. The <b>Recent</b> list shows files you used lately.</p>
-${warn(`<p>Without AutoSave, closing Excel without saving loses your work. Excel will ask first, so read the dialog before clicking <b>Don't Save</b>. Make ${k('Ctrl')}+${k('S')} a habit.</p>`)}
+<p>${path('File', 'Open')} or ${sc('Ctrl+O')}. The <b>Recent</b> list shows files you used lately.</p>
+${warn(`<p>Without AutoSave, closing Excel without saving loses your work. Excel will ask first, so read the dialog before clicking <b>Don't Save</b>. Make ${sc('Ctrl+S')} a habit.</p>`)}
 ${diff(`<p>Google Sheets saves every change to Google Drive automatically. There is no Save button.</p>`)}
 ${quiz('q1')}${quiz('q2')}` : `
 <h3>Create</h3>
@@ -177,7 +177,7 @@ ${quiz('q1')}${quiz('q2')}`,
             q1: { q: 'What is the standard file extension for an Excel workbook without macros?', options: ['.xls', '.xlsx', '.csv', '.xlsm'], answer: 1, explain: '.xlsx is the modern default. .xlsm holds macros, .csv is plain text and .xls is the old pre-2007 format.' },
             q2: { q: 'When does AutoSave work in Excel?', options: ['Always', 'Only for files stored in OneDrive or SharePoint', 'Only for .csv files', 'Only on Mac'], answer: 1, explain: 'AutoSave needs the file to live in OneDrive or SharePoint. Otherwise save with Ctrl+S.' },
           } : {
-            q1: { q: 'How do you save a Google Sheets file?', options: ['Ctrl+S', 'File › Save', 'You don\'t need to. It saves automatically', 'Download it'], answer: 2, explain: 'Google Sheets saves every change to Drive as you work.' },
+            q1: { q: 'How do you save a Google Sheets file?', options: [M ? '⌘+S' : 'Ctrl+S', 'File › Save', 'You don\'t need to. It saves automatically', 'Download it'], answer: 2, explain: 'Google Sheets saves every change to Drive as you work.' },
             q2: { q: 'You broke your sheet yesterday and want the old version back. Where do you go?', options: ['Edit › Undo', 'File › Version history', 'Data › Restore', 'Help'], answer: 1, explain: 'Version history keeps earlier versions you can view and restore.' },
           },
         },
@@ -197,13 +197,13 @@ ${quiz('q1')}${quiz('q2')}`,
   <tr><td>Select a range</td><td>Click and drag, or click the first cell then ${k('Shift')}+click the last</td></tr>
   <tr><td>Grow the selection</td><td>${k('Shift')}+arrow keys</td></tr>
   <tr><td>Select a whole column / row</td><td>Click the column letter / row number</td></tr>
-  <tr><td>Jump to the edge of the data</td><td>${k('Ctrl')}+arrow key</td></tr>
-  <tr><td>Select to the edge of the data</td><td>${k('Ctrl')}+${k('Shift')}+arrow key</td></tr>
-  <tr><td>Select everything</td><td>${k('Ctrl')}+${k('A')}</td></tr>
-  <tr><td>Go to cell A1</td><td>${k('Ctrl')}+${k('Home')}</td></tr>
-  <tr><td>Select cells that are not next to each other</td><td>Hold ${k('Ctrl')} while clicking or dragging</td></tr>
+  <tr><td>Jump to the edge of the data</td><td>${sc('Ctrl')}+arrow key</td></tr>
+  <tr><td>Select to the edge of the data</td><td>${sc('Ctrl+Shift')}+arrow key</td></tr>
+  <tr><td>Select everything</td><td>${sc('Ctrl+A')}</td></tr>
+  <tr><td>Go to cell A1</td><td>${sc('Ctrl+Home')}</td></tr>
+  <tr><td>Select cells that are not next to each other</td><td>Hold ${sc('Ctrl')} while clicking or dragging</td></tr>
 </table>
-<p class="small">${c.mac}</p>
+<p class="small">${c.kbNote}</p>
 <h3>Quick answers in the status bar</h3>
 <p>Select some numbers and look at the ${X ? 'status bar at the bottom of the window' : 'Sum box at the bottom-right'}. It shows the ${X ? 'Sum, Average and Count' : 'Sum (click it for Average, Count, Min, Max)'} with no formula needed. The practice sheet shows the same thing under the grid.</p>
 ${grid('g')}
@@ -216,20 +216,20 @@ ${quiz('q1')}`,
               tasks: [
                 { text: 'Select <b>B2:B7</b> (drag from B2 down to B7). Read the <b>Sum</b> under the grid and type that number into <b>D2</b>.', hint: 'The status line under the grid says "Sum: …". Type the number itself in D2, not a formula.', solution: { cells: { D2: '833' } }, check: (g) => g.num('D2') === 833 && !g.isFormula('D2') },
                 { text: 'With the same cells selected, read the <b>Average</b>. Round it to the nearest whole number and type it into <b>D3</b>.', hint: 'The average is 138.83…', solution: { cells: { D3: '139' } }, check: (g) => g.num('D3') === 139 },
-                { text: 'Click <b>A2</b> and press ' + k('Ctrl') + '+' + k('↓') + '. Which month do you land on? Type it in <b>D4</b>.', hint: 'Ctrl+Down jumps to the last filled cell in the column.', solution: { cells: { D4: 'Jun' } }, check: (g) => g.eqText('D4', 'jun') || g.eqText('D4', 'june') },
+                { text: 'Click <b>A2</b> and press ' + sc('Ctrl+↓') + '. Which month do you land on? Type it in <b>D4</b>.', hint: 'Ctrl+Down jumps to the last filled cell in the column.', solution: { cells: { D4: 'Jun' } }, check: (g) => g.eqText('D4', 'jun') || g.eqText('D4', 'june') },
               ],
             },
           },
           quizzes: {
-            q1: { q: 'Which shortcut jumps to the last filled cell in a column?', options: ['Shift+Down', 'Ctrl+Down', 'Alt+Down', 'Tab'], answer: 1, explain: 'Ctrl+arrow jumps to the edge of the data. Add Shift to select along the way.' },
+            q1: { q: 'Which shortcut jumps to the last filled cell in a column?', options: M ? ['Shift+↓', '⌘+↓', 'Option+↓', 'Tab'] : ['Shift+Down', 'Ctrl+Down', 'Alt+Down', 'Tab'], answer: 1, explain: (M ? '⌘' : 'Ctrl') + '+arrow jumps to the edge of the data. Add Shift to select along the way.' },
           },
         },
         {
           id: 'copy-fill', title: 'Copy, paste and AutoFill', minutes: 9,
           html: `
 <h3>Copy, cut, paste</h3>
-<p>${k('Ctrl')}+${k('C')} copies, ${k('Ctrl')}+${k('X')} cuts, ${k('Ctrl')}+${k('V')} pastes and ${k('Ctrl')}+${k('Z')} undoes. Paste goes to the selected cell, which becomes the top-left of the pasted block.</p>
-${X ? tip(`<p><b>Paste Special</b> (${k('Ctrl')}+${k('Alt')}+${k('V')}; Mac: ${k('⌘')}+${k('Ctrl')}+${k('V')}) lets you paste only the values, only the formatting, or flip rows and columns (Transpose).</p>`) : tip(`<p><b>Paste special</b>: ${k('Ctrl')}+${k('Shift')}+${k('V')} pastes values only. ${path('Edit', 'Paste special')} has more options, such as format only and transposed.</p>`)}
+<p>${sc('Ctrl+C')} copies, ${sc('Ctrl+X')} cuts, ${sc('Ctrl+V')} pastes and ${sc('Ctrl+Z')} undoes. Paste goes to the selected cell, which becomes the top-left of the pasted block.</p>
+${X ? tip(`<p><b>Paste Special</b> (${sc('Ctrl+Alt+V')}) lets you paste only the values, only the formatting, or flip rows and columns (Transpose).</p>`) : tip(`<p><b>Paste special</b>: ${sc('Ctrl+Shift+V')} pastes values only. ${path('Edit', 'Paste special')} has more options, such as format only and transposed.</p>`)}
 <h3>AutoFill: the fill handle</h3>
 <p>Select a cell and look at its bottom-right corner. The small square there is the <strong>fill handle</strong>. Drag it down or across and ${app} continues the pattern:</p>
 <ul>
@@ -239,7 +239,7 @@ ${X ? tip(`<p><b>Paste Special</b> (${k('Ctrl')}+${k('Alt')}+${k('V')}; Mac: ${k
   <li>A single plain number, or plain text, is simply copied.</li>
   <li>Formulas are copied and adjusted. That is the topic of Chapter 4.</li>
 </ul>
-${tip(`<p>Double-click the fill handle to fill down as far as the column next to it has data. ${X ? `${k('Ctrl')}+${k('D')} fills down from the top cell of a selection, and ${k('Ctrl')}+${k('R')} fills right.` : `${k('Ctrl')}+${k('D')} fills down from the top cell of a selection, and ${k('Ctrl')}+${k('R')} fills right.`}</p>`)}
+${tip(`<p>Double-click the fill handle to fill down as far as the column next to it has data. ${X ? `${sc('Ctrl+D')} fills down from the top cell of a selection, and ${sc('Ctrl+R')} fills right.` : `${sc('Ctrl+D')} fills down from the top cell of a selection, and ${sc('Ctrl+R')} fills right.`}</p>`)}
 <h3>Practice</h3>
 ${grid('g')}`,
           grids: {
@@ -251,7 +251,7 @@ ${grid('g')}`,
                 { text: 'Select <b>A2</b> and drag its fill handle down to <b>A7</b> to get Jan to Jun.', hint: 'Grab the small square at the bottom-right of the selected cell and drag down.', solution: { cells: { A3: 'Feb', A4: 'Mar', A5: 'Apr', A6: 'May', A7: 'Jun' } }, check: (g) => ['jan', 'feb', 'mar', 'apr', 'may', 'jun'].every((m, i) => g.eqText('A' + (i + 2), m)) },
                 { text: 'Fill <b>B2</b> down to <b>B7</b> to get Week 1 to Week 6.', hint: 'Same move, starting from B2.', solution: { cells: { B3: 'Week 2', B4: 'Week 3', B5: 'Week 4', B6: 'Week 5', B7: 'Week 6' } }, check: (g) => [1, 2, 3, 4, 5, 6].every((n) => g.eqText('B' + (n + 1), 'week ' + n)) },
                 { text: 'Select <b>C2:C3</b> together, then drag the fill handle down to <b>C11</b> to count 1 to 10.', hint: 'Selecting two cells shows the step (+1). Drag from the fill handle of the selection.', solution: { cells: Object.fromEntries([3, 4, 5, 6, 7, 8, 9, 10].map((n) => ['C' + (n + 1), String(n)])) }, check: (g) => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].every((n) => g.num('C' + (n + 1)) === n) },
-                { text: 'Copy <b>D2</b> with ' + k('Ctrl') + '+' + k('C') + ', select <b>D3:D5</b> and paste with ' + k('Ctrl') + '+' + k('V') + '.', hint: 'Pasting into a bigger selection fills all of it.', solution: { cells: { D3: 'Hi', D4: 'Hi', D5: 'Hi' } }, check: (g) => ['D3', 'D4', 'D5'].every((a) => g.eqText(a, 'hi')) },
+                { text: 'Copy <b>D2</b> with ' + sc('Ctrl+C') + ', select <b>D3:D5</b> and paste with ' + sc('Ctrl+V') + '.', hint: 'Pasting into a bigger selection fills all of it.', solution: { cells: { D3: 'Hi', D4: 'Hi', D5: 'Hi' } }, check: (g) => ['D3', 'D4', 'D5'].every((a) => g.eqText(a, 'hi')) },
               ],
             },
           },
@@ -268,7 +268,7 @@ ${grid('g')}`,
   <tr><td>Percent</td><td>0.25</td><td>25%</td></tr>
   <tr><td>Date</td><td>45658</td><td>1/1/2025</td></tr>
 </table>
-<p>${X ? `In Excel, use the <b>Number</b> group on the <b>Home</b> tab: the dropdown, the <b>$</b> (Accounting), <b>%</b>, <b>,</b> (Comma style) and the increase/decrease decimal buttons. ${k('Ctrl')}+${k('1')} opens the full <b>Format Cells</b> dialog.` : `In Google Sheets, use the toolbar buttons <b>$</b> (currency), <b>%</b>, <b>.0</b> / <b>.00</b> (fewer / more decimals) and <b>123</b> (more formats). Or go to ${path('Format', 'Number')}.`}</p>
+<p>${X ? `In Excel, use the <b>Number</b> group on the <b>Home</b> tab: the dropdown, the <b>$</b> (Accounting), <b>%</b>, <b>,</b> (Comma style) and the increase/decrease decimal buttons. ${sc('Ctrl+1')} opens the full <b>Format Cells</b> dialog.` : `In Google Sheets, use the toolbar buttons <b>$</b> (currency), <b>%</b>, <b>.0</b> / <b>.00</b> (fewer / more decimals) and <b>123</b> (more formats). Or go to ${path('Format', 'Number')}.`}</p>
 ${note(`<p>Dates are numbers too: a count of days. That is why you can subtract one date from another to get the number of days between them. Type a date like <b>3/15/2025</b> and ${app} recognises it.${X ? '' : ' (The format it expects follows your spreadsheet locale in File › Settings.)'}</p>`, 'Dates are numbers')}
 ${tip(`<p>Typing <b>25%</b> stores 0.25 and applies the percent format in one go. Typing <b>$9.99</b> stores 9.99 as currency.</p>`)}
 <h3>Practice</h3>
@@ -297,7 +297,7 @@ ${quiz('q1')}`,
 <p>A tidy sheet is easier to read and harder to misread. The basics:</p>
 <table class="ref">
   <tr><th>Goal</th><th>How in ${app}</th></tr>
-  <tr><td>Bold, italic, font, colour</td><td>${X ? 'Home tab › Font group' : 'Toolbar: B, I, font, text colour (A)'}, or ${k('Ctrl')}+${k('B')} / ${k('Ctrl')}+${k('I')}</td></tr>
+  <tr><td>Bold, italic, font, colour</td><td>${X ? 'Home tab › Font group' : 'Toolbar: B, I, font, text colour (A)'}, or ${sc('Ctrl+B')} / ${sc('Ctrl+I')}</td></tr>
   <tr><td>Fill (background) colour</td><td>${X ? 'Home › Font › Fill Color (paint bucket)' : 'Toolbar › Fill colour (paint bucket)'}</td></tr>
   <tr><td>Borders</td><td>${X ? 'Home › Font › Borders dropdown' : 'Toolbar › Borders'}</td></tr>
   <tr><td>Column width</td><td>Drag the line between column letters. Double-click it to auto-fit${X ? '' : ' (or right-click › Resize column › Fit to data)'}</td></tr>
@@ -316,7 +316,7 @@ ${grid('g')}`,
               rows: 5, cols: 4, toolbar: ['format'],
               data: [['Product', 'Q1', 'Q2', 'Q3'], ['Pens', '120', '140', '160'], ['Paper', '300', '280', '310'], ['Ink', '45', '52', '61']],
               tasks: [
-                { text: 'Make the header row <b>A1:D1</b> bold.', hint: 'Click the row number 1 (or drag A1 to D1), then press ' + k('Ctrl') + '+' + k('B') + ' or click B.', solution: { formats: { A1: { b: true }, B1: { b: true }, C1: { b: true }, D1: { b: true } } }, check: (g) => ['A1', 'B1', 'C1', 'D1'].every((a) => g.fmt(a).b) },
+                { text: 'Make the header row <b>A1:D1</b> bold.', hint: 'Click the row number 1 (or drag A1 to D1), then press ' + sc('Ctrl+B') + ' or click B.', solution: { formats: { A1: { b: true }, B1: { b: true }, C1: { b: true }, D1: { b: true } } }, check: (g) => ['A1', 'B1', 'C1', 'D1'].every((a) => g.fmt(a).b) },
                 { text: 'Give the numbers <b>B2:D4</b> the thousands-separator format (the <b>,</b> button), then remove the decimals.', hint: 'Click "," then .00→.0 twice.', solution: { formats: Object.fromEntries(['B', 'C', 'D'].flatMap((col) => [2, 3, 4].map((r) => [col + r, { nf: 'number', d: 0 }]))) }, check: (g) => ['B', 'C', 'D'].every((col) => [2, 3, 4].every((r) => g.fmt(col + r).nf === 'number' && g.fmt(col + r).d === 0)) },
               ],
             },
@@ -409,7 +409,7 @@ ${quiz('q1')}`,
   <tr><td>ROUND</td><td>Round to a number of decimals</td><td>${code('=ROUND(B2,1)')}</td></tr>
 </table>
 <p>Arguments are separated by commas. ${code('=SUM(B2:B4, D2, 10)')} adds a range, a single cell and the number 10.</p>
-${X ? note(`<p>Some countries use a semicolon instead of a comma between arguments, for example ${code('=ROUND(B2;1)')}. It depends on your Windows or Mac regional settings. This book uses commas.</p>`, 'Commas or semicolons?') : note(`<p>Some locales use a semicolon instead of a comma between arguments, for example ${code('=ROUND(B2;1)')}. It depends on ${path('File', 'Settings', 'Locale')}. This book uses commas.</p>`, 'Commas or semicolons?')}
+${X ? note(`<p>Some countries use a semicolon instead of a comma between arguments, for example ${code('=ROUND(B2;1)')}. It depends on your ${M ? 'Mac' : 'Windows'} region settings. This book uses commas.</p>`, 'Commas or semicolons?') : note(`<p>Some locales use a semicolon instead of a comma between arguments, for example ${code('=ROUND(B2;1)')}. It depends on ${path('File', 'Settings', 'Locale')}. This book uses commas.</p>`, 'Commas or semicolons?')}
 ${tip(`<p>As you type ${code('=AV')}, ${app} shows a list of matching functions. Press ${k('Tab')} to pick one. Once you type the opening bracket, a tooltip shows what arguments it needs. The practice sheet shows a short version under the grid.</p>`)}
 <h3>Practice</h3>
 ${grid('g')}
@@ -436,7 +436,7 @@ ${quiz('q1')}`,
           id: 'autosum-errors', title: 'AutoSum and fixing errors', minutes: 9,
           html: `
 <h3>AutoSum</h3>
-<p>${X ? `Select the cell under a column of numbers and click <b>AutoSum</b> (Σ) on the <b>Home</b> tab (Editing group) or the <b>Formulas</b> tab. Shortcut: ${k('Alt')}+${k('=')} on Windows, ${k('⌘')}+${k('Shift')}+${k('T')} on Mac. Excel guesses the range and writes the SUM for you. Press Enter to accept. The arrow next to Σ offers Average, Count, Max and Min.` : `Select the cell under a column of numbers, click the <b>Σ</b> (Functions) button on the toolbar and choose <b>SUM</b>. Sheets suggests the range. Press Enter to accept. The same menu lists every function by category.`}</p>
+<p>${X ? `Select the cell under a column of numbers and click <b>AutoSum</b> (Σ) on the <b>Home</b> tab (Editing group) or the <b>Formulas</b> tab. Shortcut: ${sc('Alt+=')}. Excel guesses the range and writes the SUM for you. Press Enter to accept. The arrow next to Σ offers Average, Count, Max and Min.` : `Select the cell under a column of numbers, click the <b>Σ</b> (Functions) button on the toolbar and choose <b>SUM</b>. Sheets suggests the range. Press Enter to accept. The same menu lists every function by category.`}</p>
 <h3>Reading error messages</h3>
 <p>Errors are not scary. They tell you what went wrong:</p>
 <table class="ref">
@@ -484,7 +484,7 @@ ${grid('g')}`,
   <tr><th>4</th><td>30</td><td>1</td><td class="hl2">=B4*C4</td></tr></table>
   <div class="cap">Write once, fill down. Each copy adjusts its row.</div>
 </div>
-<p>Write the formula once, then fill it down with the fill handle, by double-clicking the fill handle, or with ${k('Ctrl')}+${k('D')}.</p>
+<p>Write the formula once, then fill it down with the fill handle, by double-clicking the fill handle, or with ${sc('Ctrl+D')}.</p>
 <h3>Practice</h3>
 ${grid('g')}
 ${quiz('q1')}`,
@@ -495,7 +495,7 @@ ${quiz('q1')}`,
               formats: { A1: { b: true }, B1: { b: true }, C1: { b: true }, D1: { b: true } },
               tasks: [
                 { text: 'In <b>D2</b>, write <b>=B2*C2</b>.', solution: { cells: { D2: '=B2*C2' } }, check: (g) => g.isFormula('D2') && g.near('D2', 10) && g.has('D2', /B2/) },
-                { text: 'Fill D2 down to <b>D6</b>: drag the fill handle, or select D2:D6 and press ' + k('Ctrl') + '+' + k('D') + '.', hint: 'Then click D5 and check the formula bar: it should say =B5*C5.', solution: { cells: { D3: '=B3*C3', D4: '=B4*C4', D5: '=B5*C5', D6: '=B6*C6' } }, check: (g) => [3, 4, 5, 6].every((r) => g.isFormula('D' + r) && g.near('D' + r, g.num('B' + r) * g.num('C' + r)) && g.has('D' + r, new RegExp('B' + r))) },
+                { text: 'Fill D2 down to <b>D6</b>: drag the fill handle, or select D2:D6 and press ' + sc('Ctrl+D') + '.', hint: 'Then click D5 and check the formula bar: it should say =B5*C5.', solution: { cells: { D3: '=B3*C3', D4: '=B4*C4', D5: '=B5*C5', D6: '=B6*C6' } }, check: (g) => [3, 4, 5, 6].every((r) => g.isFormula('D' + r) && g.near('D' + r, g.num('B' + r) * g.num('C' + r)) && g.has('D' + r, new RegExp('B' + r))) },
                 { text: 'In <b>D7</b>, total column D with SUM.', hint: '=SUM(D2:D6)', solution: { cells: { D7: '=SUM(D2:D6)' } }, check: (g) => g.uses('D7', 'SUM') && g.near('D7', 68) },
               ],
             },
@@ -516,7 +516,7 @@ ${quiz('q1')}`,
   <tr><td>${code('B$1')}</td><td>Column moves, row locked</td></tr>
   <tr><td>${code('$B1')}</td><td>Column locked, row moves</td></tr>
 </table>
-${tip(`<p>While editing a formula, put the cursor on a reference and press ${k('F4')}${X ? ` (Mac: ${k('⌘')}+${k('T')})` : ''}. It cycles B1 → $B$1 → B$1 → $B1. The practice sheet supports F4 too.</p>`)}
+${tip(`<p>While editing a formula, put the cursor on a reference and press ${sc('F4')}. It cycles B1 → $B$1 → B$1 → $B1. The practice sheet supports F4 too.</p>`)}
 <h3>Practice</h3>
 ${grid('g')}
 ${quiz('q1')}`,
@@ -547,7 +547,7 @@ ${quiz('q1')}`,
 </ul>
 <p>One formula, filled across and down, fills the whole table correctly.</p>
 <h3>Practice</h3>
-<p>Write the formula in B2, fill it right to F2, then fill B2:F2 down to row 6. Or select B2:F6 after writing B2 and use ${k('Ctrl')}+${k('R')} then ${k('Ctrl')}+${k('D')}.</p>
+<p>Write the formula in B2, fill it right to F2, then fill B2:F2 down to row 6. Or select B2:F6 after writing B2 and use ${sc('Ctrl+R')} then ${sc('Ctrl+D')}.</p>
 ${grid('g')}`,
           grids: {
             g: {

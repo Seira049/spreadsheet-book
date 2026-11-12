@@ -10,6 +10,15 @@
   if (!META[track]) { location.replace('index.html'); return; }
   const meta = META[track];
 
+  // ---------- Platform (Windows / Mac) ----------
+  const OS_NAMES = { win: 'Windows', mac: 'Mac' };
+  const params = new URLSearchParams(location.search);
+  const detectOS = () => (/Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent) ? 'mac' : 'win');
+  let os = params.get('os');
+  if (!OS_NAMES[os]) { try { os = localStorage.getItem('ssbook:os'); } catch (e) { os = null; } }
+  if (!OS_NAMES[os]) os = detectOS();
+  try { localStorage.setItem('ssbook:os', os); } catch (e) { /* ignore */ }
+
   // ---------- Storage ----------
   const PREFIX = `ssbook:${track}:`;
   const store = {
@@ -21,7 +30,7 @@
   const saveProgress = () => store.set('progress', progress);
 
   // ---------- Content ----------
-  const chapters = BookContent.build(track);
+  const chapters = BookContent.build(track, os);
   const lessons = [];
   chapters.forEach((ch, ci) => ch.lessons.forEach((l) => lessons.push(Object.assign(l, { chapter: ch, chapterIndex: ci }))));
   const byId = Object.fromEntries(lessons.map((l, i) => [l.id, Object.assign(l, { index: i })]));
@@ -32,8 +41,17 @@
   const toc = $('#toc');
   document.body.classList.add('track-' + track);
   document.title = meta.title;
-  $('#book-title').textContent = meta.title;
-  $('#switch-book').href = `book.html?track=${meta.other}`;
+  $('#book-title').textContent = `${meta.title} · ${OS_NAMES[os]}`;
+  $('#switch-book').href = `book.html?track=${meta.other}&os=${os}`;
+  document.body.classList.add('os-' + os);
+  document.querySelectorAll('#os-switch [data-os]').forEach((b) => {
+    b.setAttribute('aria-pressed', String(b.dataset.os === os));
+    b.addEventListener('click', () => {
+      if (b.dataset.os === os) return;
+      try { localStorage.setItem('ssbook:os', b.dataset.os); } catch (e) { /* ignore */ }
+      location.href = `book.html?track=${track}&os=${b.dataset.os}${location.hash}`;
+    });
+  });
   $('#switch-book').textContent = `Switch to the ${meta.otherName} book`;
 
   // Theme
@@ -128,7 +146,7 @@
       mounted.push(entry);
       const gridEl = document.createElement('div');
       el.appendChild(gridEl);
-      entry.grid = new SheetGrid(gridEl, Object.assign({ enterEdits: track === 'sheets' }, cfg), {
+      entry.grid = new SheetGrid(gridEl, Object.assign({ enterEdits: track === 'sheets', os }, cfg), {
         saved: store.get(key, null),
         onChange: (snap) => store.set(key, snap),
         onTasksChange: (state, justFinished) => {

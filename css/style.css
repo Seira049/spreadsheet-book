@@ -63,7 +63,12 @@ code.f { font-family: var(--mono); font-size: .88em; background: var(--code-bg);
 .eyebrow { text-transform: uppercase; letter-spacing: .12em; font-size: .8rem; opacity: .85; margin: 0 0 .6rem; }
 .hero h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); margin: 0 0 1rem; line-height: 1.1; }
 .lede { font-size: 1.15rem; opacity: .95; margin: 0 auto; max-width: 640px; }
-.shelf { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.6rem; max-width: 900px; margin: -3.5rem auto 0; padding: 0 1.5rem; position: relative; }
+.picker { max-width: 900px; margin: -3.5rem auto 0; padding: 1.6rem 1.8rem 1.2rem; background: var(--panel); border-radius: 14px; box-shadow: var(--shadow); position: relative; text-align: center; width: calc(100% - 3rem); }
+.picker h2 { font-size: 1.15rem; margin: 0 0 .3rem; display: flex; align-items: center; justify-content: center; gap: .55rem; }
+.picker p { margin: 0 0 1rem; color: var(--muted); font-size: .95rem; }
+.picker .pick-next { margin: 1.5rem 0 0; }
+.step { display: inline-grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 50%; background: #107c41; color: #fff; font-size: .85rem; }
+.shelf { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.6rem; max-width: 900px; margin: 1.4rem auto 0; padding: 0 1.5rem; position: relative; }
 .book-card { background: var(--panel); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; color: var(--ink); text-decoration: none; display: flex; flex-direction: column; transition: transform .15s ease, box-shadow .15s ease; }
 .book-card:hover { transform: translateY(-3px); box-shadow: 0 6px 28px rgba(0,0,0,.14); }
 .book-card.excel { --accent: #107c41; }
@@ -82,6 +87,15 @@ code.f { font-family: var(--mono); font-size: .88em; background: var(--code-bg);
 .features h3 { margin: 0 0 .3rem; font-size: 1rem; }
 .features p { margin: 0; color: var(--muted); font-size: .93rem; }
 .site-foot { text-align: center; color: var(--muted); font-size: .8rem; padding: 2rem 1.5rem 3rem; max-width: 700px; margin: 0 auto; }
+
+/* ---------- Segmented control (Windows / Mac) ---------- */
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--bg); }
+.seg button { font: inherit; font-size: .85rem; border: 0; background: none; color: var(--muted); padding: .3rem .7rem; cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); font-weight: 600; }
+.seg.big button { font-size: 1.05rem; padding: .7rem 1.6rem; min-width: 150px; }
+.seg.big button[aria-pressed="true"] { background: #107c41; }
+.kb-note { font-family: var(--font); }
 
 /* ---------- Reader layout ---------- */
 .topbar { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; gap: .8rem; padding: .55rem 1rem; background: var(--panel); border-bottom: 1px solid var(--line); }
@@ -264,6 +278,8 @@ table.mini tr.tot td { font-weight: 700; background: var(--head-bg); }
 }
 @media (max-width: 560px) {
   #progress-text { display: none; }
+  .topbar .progress { display: none; }
+  .seg.big button { min-width: 0; padding: .6rem 1rem; }
   .pager .btn { max-width: 100%; width: 100%; justify-content: center; }
 }
 @media print {

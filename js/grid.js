@@ -475,7 +475,7 @@
       this.clip = { cells, fmts, col: s.c1, row: s.r1 };
       const tsv = cells.map((r, ri) => r.map((_, ci) => formatValue(this.sheet.value(addr(s.c1 + ci, s.r1 + ri)), null)).join('\t')).join('\n');
       try { if (navigator.clipboard) navigator.clipboard.writeText(tsv).catch(() => {}); } catch (e) { /* ignore */ }
-      this.flash(`Copied ${addr(s.c1, s.r1)}${cells.length > 1 || cells[0].length > 1 ? ':' + addr(s.c2, s.r2) : ''}. Select a cell and press ${modKey()}+V to paste.`);
+      this.flash(`Copied ${addr(s.c1, s.r1)}${cells.length > 1 || cells[0].length > 1 ? ':' + addr(s.c2, s.r2) : ''}. Select a cell and press ${this.modKey()}+V to paste.`);
       if (cut) { this.pushHistory(); this.forSel((a) => { this.setCell(a, ''); delete this.formats[a]; }); this.changed(); }
     }
     paste() {
@@ -883,6 +883,8 @@
       this.el.classList.toggle('all-done', allDone);
       if (this.opts.onTasksChange) this.opts.onTasksChange(this.taskState, allDone && !prevDone && !initial);
     }
+
+    modKey() { return this.cfg.os ? (this.cfg.os === 'mac' ? '⌘' : 'Ctrl') : modKey(); }
 
     destroy() {
       document.removeEventListener('mouseup', this._up);

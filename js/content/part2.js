@@ -1,6 +1,6 @@
 /* Chapters 5-8: Logic, Text, Lookups, Organising data */
 BookContent.register(function (c) {
-  const { X, app, v, k, path, tip, note, warn, diff, grid, quiz, code } = c;
+  const { X, M, app, platform, v, k, sc, path, tip, note, warn, diff, grid, quiz, code } = c;
 
   const SALES = [['Region', 'Rep', 'Amount'], ['North', 'Ana', '1200'], ['South', 'Ben', '800'], ['North', 'Chloe', '950'], ['East', 'Dev', '400'], ['South', 'Ana', '1500'], ['North', 'Ben', '300'], ['East', 'Chloe', '1100'], ['South', 'Dev', '700']];
   const PRODUCTS = [['ID', 'Product', 'Price'], ['P01', 'Notebook', '2.5'], ['P02', 'Pen', '1.2'], ['P03', 'Backpack', '30'], ['P04', 'Ruler', '0.8'], ['P05', 'Stapler', '6']];
@@ -190,7 +190,7 @@ ${grid('g')}`,
   <tr><td>${code('SUBSTITUTE')}</td><td>${code('SUBSTITUTE("a-b","-","/")')}</td><td>"a/b"</td></tr>
 </table>
 <p>You can stack functions. ${code('=PROPER(TRIM(A2))')} trims first, then fixes the capitals.</p>
-${tip(`<p>Once the cleaned column looks right, copy it and paste <b>values only</b> over the original (${X ? 'Paste Special › Values' : `${k('Ctrl')}+${k('Shift')}+${k('V')}`}). Then you can delete the helper column.</p>`)}
+${tip(`<p>Once the cleaned column looks right, copy it and paste <b>values only</b> over the original (${X ? 'Paste Special › Values' : `${sc('Ctrl+Shift+V')}`}). Then you can delete the helper column.</p>`)}
 ${X ? '' : note(`<p>Google Sheets also has ${path('Data', 'Data cleanup', 'Trim whitespace')} and ${path('Data', 'Data cleanup', 'Remove duplicates')}, which clean cells in place without formulas.</p>`, 'Built-in cleanup')}
 ${X ? note(`<p>Excel has ${path('Data', 'Remove Duplicates')} for duplicate rows. For bigger clean-ups, look at Power Query (${path('Data', 'Get & Transform Data')}) once you finish this book.</p>`, 'More cleanup tools') : ''}
 <h3>Practice</h3>
@@ -221,7 +221,7 @@ ${grid('g')}`,
 <p>Combine them to handle text of different lengths. To get everything before the @ in an email: ${code('=LEFT(A2, FIND("@", A2) - 1)')}.</p>
 ${note(`<p>These functions return <b>text</b>, even "1042". That keeps leading zeros like "0387". Wrap it in ${code('VALUE()')} if you need a real number.</p>`)}
 <h3>No formulas needed?</h3>
-<p>${X ? `<b>Flash Fill</b>: type the result you want for the first one or two rows, then press ${k('Ctrl')}+${k('E')} (or ${path('Data', 'Flash Fill')}). Excel spots the pattern and fills the rest. To split by a character such as a dash, use ${path('Data', 'Text to Columns')}.` : `<b>Smart Fill</b>: type the result you want for the first rows and Sheets may suggest the rest. Accept with the check mark, or press ${k('Ctrl')}+${k('Shift')}+${k('Y')} (Mac: ${k('⌘')}+${k('Shift')}+${k('Y')}). Smart Fill writes a formula, which you can see by clicking a filled cell. To split by a character such as a dash, use ${path('Data', 'Split text to columns')}, or the function ${code('=SPLIT(A2, "-")')}.`} ${X ? 'Flash Fill writes fixed values, so formulas are still useful when the data will change.' : 'Writing the formula yourself means you know exactly what it does.'}</p>
+<p>${X ? `<b>Flash Fill</b>: type the result you want for the first one or two rows, then ${M ? `choose ${path('Data', 'Flash Fill')}` : `press ${sc('Ctrl+E')} (or ${path('Data', 'Flash Fill')})`}. Excel spots the pattern and fills the rest. To split by a character such as a dash, use ${path('Data', 'Text to Columns')}.` : `<b>Smart Fill</b>: type the result you want for the first rows and Sheets may suggest the rest. Accept with the check mark, or press ${sc('Ctrl+Shift+Y')}. Smart Fill writes a formula, which you can see by clicking a filled cell. To split by a character such as a dash, use ${path('Data', 'Split text to columns')}, or the function ${code('=SPLIT(A2, "-")')}.`} ${X ? 'Flash Fill writes fixed values, so formulas are still useful when the data will change.' : 'Writing the formula yourself means you know exactly what it does.'}</p>
 <h3>Practice</h3>
 ${grid('g')}`,
           grids: {
@@ -387,7 +387,7 @@ ${grid('g')}`,
           html: `
 <p>A <strong>filter</strong> temporarily hides the rows you don't want, so you can focus on, for example, only the IT department or only orders over $500. Nothing is deleted.</p>
 <h3>Turn on a filter</h3>
-<p>${X ? `Click inside your table and choose ${path('Data', 'Filter')} (shortcut ${k('Ctrl')}+${k('Shift')}+${k('L')}). A dropdown arrow appears in each header.` : `Click inside your table and choose ${path('Data', 'Create a filter')}. A filter icon appears in each header.`}</p>
+<p>${X ? `Click inside your table and choose ${path('Data', 'Filter')} (shortcut ${sc('Ctrl+Shift+L')}). A dropdown arrow appears in each header.` : `Click inside your table and choose ${path('Data', 'Create a filter')}. A filter icon appears in each header.`}</p>
 <ul>
   <li>Click the arrow in a header and untick values to hide them.</li>
   <li><b>${X ? 'Number Filters' : 'Filter by condition'}</b> handles conditions like "greater than 500" or "text contains".</li>
@@ -401,7 +401,7 @@ ${note(`<p>SUM includes hidden rows. To total only the visible rows after filter
 ${quiz('q1')}${quiz('q2')}`,
           quizzes: {
             q1: { q: 'You filter a table to show only "IT". What happens to the other rows?', options: ['They are deleted', 'They are hidden until you clear the filter', 'They move to another sheet', 'They are greyed out'], answer: 1, explain: 'Filters only hide rows. Clear the filter and everything comes back.' },
-            q2: { q: X ? 'What is the keyboard shortcut to toggle filters in Excel for Windows?' : 'How can you filter a shared sheet without changing what your collaborators see?', options: X ? ['Ctrl+F', 'Ctrl+Shift+L', 'Alt+F4', 'Ctrl+T'] : ['Use a filter view', 'Make a copy each time', 'Hide rows manually', 'Use Ctrl+F'], answer: X ? 1 : 0, explain: X ? 'Ctrl+Shift+L turns filters on and off. Ctrl+F is Find, and Ctrl+T makes a Table.' : 'Filter views are personal, named filters that don\'t affect other people.' },
+            q2: { q: X ? `What is the keyboard shortcut to turn filters on and off in Excel for ${platform}?` : 'How can you filter a shared sheet without changing what your collaborators see?', options: X ? (M ? ['⌘+F', '⌘+Shift+F', '⌘+Q', '⌘+T'] : ['Ctrl+F', 'Ctrl+Shift+L', 'Alt+F4', 'Ctrl+T']) : ['Use a filter view', 'Make a copy each time', 'Hide rows manually', 'Use Ctrl+F'], answer: X ? 1 : 0, explain: X ? (M ? '⌘+Shift+F turns filters on and off (Ctrl+Shift+L also works). ⌘+F is Find, and ⌘+T makes a Table.' : 'Ctrl+Shift+L turns filters on and off. Ctrl+F is Find, and Ctrl+T makes a Table.') : 'Filter views are personal, named filters that don\'t affect other people.' },
           },
         },
         {
